@@ -1,17 +1,27 @@
-import { View, Image, Text } from "react-native";
+import { View, Image, Text, TouchableOpacity } from "react-native";
+import { useNavigation } from "@react-navigation/native";
 
 type CardProps = {
   url: string;
   title: string;
-  id?: number;
+  id?: string;
 };
 
 export const Card = ({ url, title, id }: CardProps) => {
+  const navigation = useNavigation();
+
+  const openAnimeDetails = () => {
+    navigation.navigate("animeDetails", { id: id });
+  };
+
   return (
-    <View className="w-40 p-4 m-1 bg-gray-900 rounded-md">
+    <TouchableOpacity
+      className="w-40 p-4 m-1 bg-gray-900 rounded-md"
+      onPress={openAnimeDetails}
+    >
       <Image className=" h-40 rounded-md" source={{ uri: url }} />
 
       <Text className="text-white font-bold mt-3">{title}</Text>
-    </View>
+    </TouchableOpacity>
   );
 };

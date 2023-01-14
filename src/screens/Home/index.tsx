@@ -13,7 +13,7 @@ import { getAnimes } from "../../service/Api";
 export const Home = () => {
   const [animes, setAnimes] = useState<AnimesData[]>([]);
   const [offset, setOffset] = useState(0);
-  console.log(offset);
+
   const fetchAnimes = async () => {
     const data = await getAnimes(offset);
 
@@ -33,11 +33,12 @@ export const Home = () => {
       <Card
         url={item.attributes.posterImage.medium}
         title={item.attributes.titles.en_jp}
+        id={item.id}
       />
     );
   };
   return (
-    <View className="flex-1 items-center px-3 pt-16 pb-3 bg-sky-700">
+    <View className="flex-1 items-center bg-sky-700">
       <FlatList
         data={animes}
         renderItem={RenderItem}

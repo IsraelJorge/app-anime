@@ -10,5 +10,8 @@ export type AnimesData = {
     };
     synopsis: string;
     year: number;
+    youtubeVideoId: string;
+    episodeCount: number;
+    averageRating: string;
   };
 };

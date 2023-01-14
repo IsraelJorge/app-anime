@@ -20,3 +20,14 @@ export const getAnimes = async (offset: number) => {
     console.log(error);
   }
 };
+
+export const getOneAnime = async (id: string) => {
+  try {
+    const { data } = await Api.get(`/anime/${id}`);
+
+    return data;
+  } catch (error) {
+    Alert.alert("Error");
+    console.log(error);
+  }
+};

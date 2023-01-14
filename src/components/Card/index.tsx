@@ -16,7 +16,7 @@ export const Card = ({ url, title, id }: CardProps) => {
 
   return (
     <TouchableOpacity
-      className="w-40 p-4 m-1 bg-gray-900 rounded-md"
+      className="w-40 p-4 m-1 bg-indigo-900 rounded-md"
       onPress={openAnimeDetails}
     >
       <Image className=" h-40 rounded-md" source={{ uri: url }} />

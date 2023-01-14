@@ -13,5 +13,8 @@ export type AnimesData = {
     youtubeVideoId: string;
     episodeCount: number;
     averageRating: string;
+    coverImage: {
+      original: string;
+    };
   };
 };

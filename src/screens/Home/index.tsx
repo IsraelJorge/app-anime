@@ -38,7 +38,7 @@ export const Home = () => {
     );
   };
   return (
-    <View className="flex-1 items-center bg-sky-700">
+    <View className="flex-1 px-3 pt-16 items-center bg-slate-900">
       <FlatList
         data={animes}
         renderItem={RenderItem}

@@ -21,7 +21,7 @@ export const Card = ({ url, title, id }: CardProps) => {
     >
       <Image className=" h-40 rounded-md" source={{ uri: url }} />
 
-      <Text className="text-white font-bold mt-3">{title}</Text>
+      <Text className="text-slate-200 font-bold mt-3">{title}</Text>
     </TouchableOpacity>
   );
 };

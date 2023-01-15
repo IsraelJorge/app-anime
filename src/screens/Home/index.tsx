@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import {
   View,
-  Text,
   FlatList,
   ListRenderItemInfo,
   ActivityIndicator,
@@ -38,7 +37,7 @@ export const Home = () => {
     );
   };
   return (
-    <View className="flex-1 px-3 pt-16 items-center bg-slate-900">
+    <View className="flex-1 px-3  items-center bg-slate-900">
       <FlatList
         data={animes}
         renderItem={RenderItem}
@@ -46,7 +45,9 @@ export const Home = () => {
         keyExtractor={(item) => item.id}
         onEndReached={fetchAnimes}
         onEndReachedThreshold={0.1}
-        ListFooterComponent={<ActivityIndicator size={"large"} color="#FFF" />}
+        ListFooterComponent={
+          <ActivityIndicator className="m-4 " size={"large"} color="#FFF" />
+        }
       />
     </View>
   );

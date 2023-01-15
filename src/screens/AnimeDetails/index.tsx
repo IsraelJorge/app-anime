@@ -67,7 +67,9 @@ export const AnimeDetails = () => {
 
           <View className=" w-7/12">
             <Text className="text-slate-300 font-bold text-lg  ">
-              {anime.attributes?.titles.en_jp}
+              {anime.attributes.titles.en_jp
+                ? anime.attributes.titles.en_jp
+                : anime.attributes.titles.en}
             </Text>
             <Text className="text-slate-300 ">
               {anime.attributes?.episodeCount} Episodes

@@ -1,11 +1,19 @@
-import { NavigationContainer } from "@react-navigation/native";
+import { NavigationContainer, DefaultTheme } from "@react-navigation/native";
 
 import { StackRoutes } from "./stack.routes";
-import { TabRoutes } from "./tab.routes";
+import colors from "tailwindcss/colors";
+
+const MyTheme = {
+  ...DefaultTheme,
+  colors: {
+    ...DefaultTheme.colors,
+    background: colors.slate[900],
+  },
+};
 
 export const Routes = () => {
   return (
-    <NavigationContainer>
+    <NavigationContainer theme={MyTheme}>
       <StackRoutes />
     </NavigationContainer>
   );

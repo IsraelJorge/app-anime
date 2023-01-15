@@ -4,6 +4,7 @@ import { Search } from "../screens/Search";
 import { MaterialIcons } from "@expo/vector-icons";
 
 import colors from "tailwindcss/colors";
+import { Categories } from "../screens/Categories";
 
 const { Screen, Navigator } = createBottomTabNavigator();
 
@@ -11,7 +12,6 @@ export function TabRoutes() {
   return (
     <Navigator
       screenOptions={{
-        headerShown: false,
         tabBarActiveTintColor: colors.indigo[800],
         tabBarInactiveTintColor: colors.slate[500],
         tabBarLabelStyle: {
@@ -20,9 +20,16 @@ export function TabRoutes() {
         },
         tabBarStyle: {
           backgroundColor: colors.slate[300],
+          borderTopWidth: 0,
+          borderTopLeftRadius: 20,
+          borderTopEndRadius: 20,
+
           paddingBottom: 5,
           paddingTop: 5,
+
+          elevation: 0,
         },
+        tabBarHideOnKeyboard: true,
       }}
     >
       <Screen
@@ -30,18 +37,43 @@ export function TabRoutes() {
         component={Home}
         options={{
           tabBarLabel: "Home",
+          headerTitle: "Wiki Animes",
           tabBarIcon: ({ color, size }) => (
             <MaterialIcons name="home" color={color} size={size} />
           ),
+          headerStyle: {
+            backgroundColor: colors.slate[900],
+            elevation: 0,
+          },
+
+          headerTitleStyle: {
+            color: colors.slate[300],
+            fontSize: 23,
+            fontWeight: "700",
+          },
         }}
       />
+
       <Screen
         name="search"
         component={Search}
         options={{
+          headerShown: false,
           tabBarLabel: "Search",
           tabBarIcon: ({ color, size }) => (
             <MaterialIcons name="search" color={color} size={size} />
+          ),
+        }}
+      />
+
+      <Screen
+        name="categories"
+        component={Categories}
+        options={{
+          headerShown: false,
+          tabBarLabel: "Categories",
+          tabBarIcon: ({ color, size }) => (
+            <MaterialIcons name="category" color={color} size={size} />
           ),
         }}
       />

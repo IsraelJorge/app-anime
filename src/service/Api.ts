@@ -31,3 +31,37 @@ export const getOneAnime = async (id: string) => {
     console.log(error);
   }
 };
+
+export const getCategoriesAnimes = async (categories: string) => {
+  try {
+    const { data } = await Api.get("/anime", {
+      params: {
+        filter: {
+          categories: categories,
+          seasonYear: 2017,
+          streamers: "Crunchyroll",
+        },
+      },
+    });
+    return data;
+  } catch (error) {
+    Alert.alert("Error");
+    console.log(error);
+  }
+};
+
+export const getSearchAnimes = async (search: string) => {
+  try {
+    const { data } = await Api.get("/anime", {
+      params: {
+        filter: {
+          text: search,
+        },
+      },
+    });
+    return data;
+  } catch (error) {
+    Alert.alert("Error");
+    console.log(error);
+  }
+};

@@ -3,6 +3,7 @@ export type AnimesData = {
   attributes: {
     titles: {
       en_jp: string;
+      en: string;
     };
     canonicalTitle: string;
     posterImage: {

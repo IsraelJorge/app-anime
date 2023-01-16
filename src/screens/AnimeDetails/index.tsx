@@ -50,6 +50,7 @@ export const AnimeDetails = () => {
         <ImageBackground
           className="w-full h-40"
           source={{ uri: anime.attributes.coverImage.original }}
+          fadeDuration={200}
         >
           <LinearGradient
             className="w-full h-full"
@@ -86,7 +87,7 @@ export const AnimeDetails = () => {
       </View>
 
       <View className="mt-7 px-3 pb-3">
-        <Text className="text-slate-300 font-bold text-lg">Synopsis</Text>
+        <Text className="text-slate-300 font-bold text-xl mb-3">Synopsis</Text>
         <Text className="text-slate-300 text-justify text-base">
           {anime.attributes?.synopsis}
         </Text>

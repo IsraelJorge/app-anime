@@ -1,10 +1,10 @@
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import { Home } from "../screens/Home";
+import { Catalog } from "../screens/Catalog";
 import { Search } from "../screens/Search";
+import { Home } from "../screens/Home";
 import { MaterialIcons } from "@expo/vector-icons";
 
 import colors from "tailwindcss/colors";
-import { Categories } from "../screens/Categories";
 
 const { Screen, Navigator } = createBottomTabNavigator();
 
@@ -67,13 +67,13 @@ export function TabRoutes() {
       />
 
       <Screen
-        name="categories"
-        component={Categories}
+        name="catalog"
+        component={Catalog}
         options={{
           headerShown: false,
-          tabBarLabel: "Categories",
+          tabBarLabel: "List",
           tabBarIcon: ({ color, size }) => (
-            <MaterialIcons name="category" color={color} size={size} />
+            <MaterialIcons name="list" color={color} size={size} />
           ),
         }}
       />

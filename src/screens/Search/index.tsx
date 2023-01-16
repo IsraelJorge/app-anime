@@ -40,7 +40,9 @@ export const Search = () => {
   };
 
   useEffect(() => {
-    fetchSearchAnime();
+    if (search) {
+      fetchSearchAnime();
+    }
   }, [search]);
 
   return (

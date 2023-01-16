@@ -1,6 +1,6 @@
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { AnimeDetails } from "../screens/AnimeDetails";
-import { Home } from "../screens/Home";
+import { Home } from "../screens/Catalog";
 import { TabRoutes } from "./tab.routes";
 
 const { Screen, Navigator } = createNativeStackNavigator();

@@ -1,10 +1,15 @@
 {
   "expo": {
-    "name": "app-anime",
+    "name": "Wiki Animes",
     "slug": "app-anime",
     "version": "1.0.0",
     "assetBundlePatterns": [
       "**/*"
-    ]
+    ],
+    "extra": {
+      "eas": {
+        "projectId": "4bd5a059-c2fc-4d32-be42-66ccd5619b52"
+      }
+    }
   }
 }

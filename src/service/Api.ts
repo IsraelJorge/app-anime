@@ -5,16 +5,19 @@ export const Api = axios.create({
   baseURL: "https://kitsu.io/api/edge",
 });
 
-export const getAnimes = async (offset: number) => {
+export const getAnimes = async ({ pageParam = 0 }) => {
   const { data } = await Api.get("/anime?page[limit]=20", {
     params: {
       page: {
-        offset: offset,
+        offset: pageParam,
       },
     },
   });
 
-  return data.data;
+  return {
+    data: data.data,
+    nextPage: pageParam + 20,
+  };
 };
 
 export const getOneAnime = async (id: string) => {

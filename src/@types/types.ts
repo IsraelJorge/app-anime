@@ -19,3 +19,8 @@ export type AnimesData = {
     };
   };
 };
+
+export type AnimesDataPagination = {
+  data: AnimesData[];
+  nextPage: number;
+};

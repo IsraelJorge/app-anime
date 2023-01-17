@@ -1,4 +1,3 @@
-import { useEffect, useState } from "react";
 import {
   View,
   FlatList,
@@ -6,24 +5,16 @@ import {
   Text,
   ActivityIndicator,
 } from "react-native";
+import { useQuery } from "react-query";
 import { AnimesData } from "../../@types/types";
 import { getCategoriesAnimes } from "../../service/Api";
 import { Card } from "../Card";
 
 export const Carousel = ({ title, categorie }) => {
-  const [animes, setAnimes] = useState<AnimesData[]>([]);
-  const [isLoading, setLoading] = useState(false);
-
-  const fetchCategorieAnime = async () => {
-    setLoading(true);
-
-    const data = await getCategoriesAnimes(categorie);
-
-    if (data) {
-      setAnimes(data.data);
-    }
-    setLoading(false);
-  };
+  const { data, isLoading, isError } = useQuery<AnimesData[]>(
+    ["categories", categorie],
+    () => getCategoriesAnimes(categorie)
+  );
 
   const RenderItem = ({ item }: ListRenderItemInfo<AnimesData>) => {
     return (
@@ -39,13 +30,15 @@ export const Carousel = ({ title, categorie }) => {
     );
   };
 
-  useEffect(() => {
-    fetchCategorieAnime();
-  }, []);
-
   return (
     <View>
       <Text className="text-slate-200 font-medium text-xl ml-1">{title}</Text>
+
+      {isError && (
+        <View className="h-40  justify-center">
+          <Text className="text-lg text-red-500">There was some error :( </Text>
+        </View>
+      )}
 
       {isLoading ? (
         <View className="h-56 items-center justify-center">
@@ -53,7 +46,7 @@ export const Carousel = ({ title, categorie }) => {
         </View>
       ) : (
         <FlatList
-          data={animes}
+          data={data}
           renderItem={RenderItem}
           keyExtractor={(item) => item.id}
           horizontal={true}

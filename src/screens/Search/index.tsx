@@ -3,31 +3,25 @@ import {
   View,
   FlatList,
   ActivityIndicator,
+  Text,
 } from "react-native";
 import { Input } from "../../components/Input";
 import { MaterialIcons } from "@expo/vector-icons";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { AnimesData } from "../../@types/types";
 import { Card } from "../../components/Card";
 
 import colors from "tailwindcss/colors";
 import { getSearchAnimes } from "../../service/Api";
+import { useQuery } from "react-query";
 
 export const Search = () => {
   const [search, setSearch] = useState("");
-  const [animes, setAnimes] = useState<AnimesData[]>([]);
-  const [isLoading, setIsLoading] = useState(false);
 
-  const fetchSearchAnime = async () => {
-    setIsLoading(true);
-
-    const data = await getSearchAnimes(search);
-
-    if (data) {
-      setAnimes(data.data);
-    }
-    setIsLoading(false);
-  };
+  const { data, isLoading, isError } = useQuery<AnimesData[]>(
+    ["search", search],
+    () => getSearchAnimes(search)
+  );
 
   const RenderItem = ({ item }: ListRenderItemInfo<AnimesData>) => {
     return (
@@ -38,12 +32,6 @@ export const Search = () => {
       />
     );
   };
-
-  useEffect(() => {
-    if (search) {
-      fetchSearchAnime();
-    }
-  }, [search]);
 
   return (
     <View className="flex-1 px-3 pt-16 items-center bg-slate-900 ">
@@ -56,13 +44,19 @@ export const Search = () => {
         onChangeText={(text: string) => setSearch(text)}
       />
 
-      {isLoading ? (
+      {isError && (
+        <View className="flex-1 items-center justify-center bg-slate-900">
+          <Text className="text-lg text-red-500">There was some error :( </Text>
+        </View>
+      )}
+
+      {isLoading && search ? (
         <View className="flex-1 items-center justify-center">
           <ActivityIndicator size={"large"} color="#FFF" />
         </View>
       ) : (
         <FlatList
-          data={animes}
+          data={data}
           renderItem={RenderItem}
           numColumns={2}
           keyExtractor={(item) => item.id}

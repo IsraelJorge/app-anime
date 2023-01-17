@@ -1,4 +1,3 @@
-import { useEffect, useState } from "react";
 import {
   View,
   Text,
@@ -12,32 +11,33 @@ import { getOneAnime } from "../../service/Api";
 import { useRoute } from "@react-navigation/native";
 import { LinearGradient } from "expo-linear-gradient";
 import { StatusBar } from "expo-status-bar";
+import { useQuery } from "react-query";
 
 type ParamsProps = {
   id: string;
 };
 
 export const AnimeDetails = () => {
-  const [anime, setAnime] = useState({} as AnimesData);
-  const [isLoading, setIsLoading] = useState(false);
   const route = useRoute();
-
   const { id } = route.params as ParamsProps;
 
-  const fetchOneAnime = async () => {
-    const data = await getOneAnime(id);
-    setAnime(data.data);
-    setIsLoading(true);
-  };
+  const { data, isLoading, isError } = useQuery<AnimesData>(
+    ["oneAnime", id],
+    () => getOneAnime(id)
+  );
 
-  useEffect(() => {
-    fetchOneAnime();
-  }, []);
-
-  if (!isLoading) {
+  if (isLoading) {
     return (
       <View className="flex-1 items-center justify-center bg-slate-900">
         <ActivityIndicator size={"large"} color="#FFF" />
+      </View>
+    );
+  }
+
+  if (isError) {
+    return (
+      <View className="flex-1 items-center justify-center bg-slate-900">
+        <Text className="text-lg text-red-500">There was some error :( </Text>
       </View>
     );
   }
@@ -46,10 +46,10 @@ export const AnimeDetails = () => {
     <ScrollView className="flex-1  bg-slate-900 ">
       <StatusBar style="auto" hidden={true} />
 
-      {anime.attributes.coverImage?.original && (
+      {data.attributes.coverImage?.original && (
         <ImageBackground
           className="w-full h-40"
-          source={{ uri: anime.attributes.coverImage.original }}
+          source={{ uri: data.attributes.coverImage.original }}
           fadeDuration={200}
         >
           <LinearGradient
@@ -63,17 +63,17 @@ export const AnimeDetails = () => {
         <View className="flex-row items-center ">
           <Image
             className="w-24 h-28 mr-2 rounded-md"
-            source={{ uri: anime.attributes.posterImage.medium }}
+            source={{ uri: data.attributes.posterImage.medium }}
           />
 
           <View className=" w-7/12">
             <Text className="text-slate-300 font-bold text-lg  ">
-              {anime.attributes.titles.en_jp
-                ? anime.attributes.titles.en_jp
-                : anime.attributes.titles.en}
+              {data.attributes.titles.en_jp
+                ? data.attributes.titles.en_jp
+                : data.attributes.titles.en}
             </Text>
             <Text className="text-slate-300 ">
-              {anime.attributes?.episodeCount} Episodes
+              {data.attributes?.episodeCount} Episodes
             </Text>
           </View>
         </View>
@@ -81,7 +81,7 @@ export const AnimeDetails = () => {
         <View>
           <Text className="text-slate-300 font-bold text-lg">Score</Text>
           <Text className="text-slate-300 text-center">
-            {anime.attributes?.averageRating}
+            {data.attributes?.averageRating}
           </Text>
         </View>
       </View>
@@ -89,7 +89,7 @@ export const AnimeDetails = () => {
       <View className="mt-7 px-3 pb-3">
         <Text className="text-slate-300 font-bold text-xl mb-3">Synopsis</Text>
         <Text className="text-slate-300 text-justify text-base">
-          {anime.attributes?.synopsis}
+          {data.attributes?.synopsis}
         </Text>
       </View>
     </ScrollView>

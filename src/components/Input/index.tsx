@@ -8,7 +8,7 @@ interface InputPros extends TextInputProps {
 
 export const Input = ({ Icon, ...rest }: InputPros) => {
   return (
-    <View className="w-11/12 flex-row items-center relative">
+    <View className="w-11/12 flex-row items-center mb-3 relative">
       <TextInput
         className="w-full h-11 rounded-md px-2 bg-slate-300 font-medium border-2 border-slate-500 focus:border-indigo-800"
         {...rest}

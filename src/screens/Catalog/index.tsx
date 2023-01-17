@@ -5,6 +5,7 @@ import {
   ListRenderItemInfo,
   ActivityIndicator,
 } from "react-native";
+import { useQuery } from "react-query";
 import { AnimesData } from "../../@types/types";
 import { Card } from "../../components/Card";
 import { getAnimes } from "../../service/Api";
@@ -26,6 +27,8 @@ export const Catalog = () => {
   useEffect(() => {
     fetchAnimes();
   }, []);
+
+  const {} = useQuery(["catalog"], () => getAnimes(offset));
 
   const RenderItem = ({ item }: ListRenderItemInfo<AnimesData>) => {
     return (

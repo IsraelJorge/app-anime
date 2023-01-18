@@ -16,9 +16,8 @@ export function StackRoutes() {
         name="animeDetails"
         component={AnimeDetails}
         options={{
-          animationTypeForReplace: "pop",
           gestureEnabled: true,
-          gestureDirection: "horizontal",
+          presentation: "modal",
         }}
       />
     </Navigator>

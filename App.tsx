@@ -13,7 +13,7 @@ export default function App() {
       <View className="flex-1 bg-slate-900">
         <StatusBar style="auto" />
         <Routes />
-        <Toast visibilityTime={2000} />
+        <Toast visibilityTime={4000} />
       </View>
     </QueryClientProvider>
   );

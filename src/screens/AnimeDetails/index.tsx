@@ -1,17 +1,11 @@
-import {
-  View,
-  Text,
-  Image,
-  ActivityIndicator,
-  ImageBackground,
-  ScrollView,
-} from "react-native";
+import { View, Text, ActivityIndicator, ScrollView } from "react-native";
 import { AnimesData } from "../../@types/types";
 import { getOneAnime } from "../../service/Api";
 import { useRoute } from "@react-navigation/native";
-import { LinearGradient } from "expo-linear-gradient";
 import { StatusBar } from "expo-status-bar";
 import { useQuery } from "react-query";
+import { TabsDetails } from "../../routes/details.routes";
+import { HeaderDetails } from "../../components/HeaderDetails";
 
 type ParamsProps = {
   id: string;
@@ -43,55 +37,20 @@ export const AnimeDetails = () => {
   }
 
   return (
-    <ScrollView className="flex-1  bg-slate-900 ">
+    <View className="flex-1">
       <StatusBar style="auto" hidden={true} />
-
-      {data.attributes.coverImage?.original && (
-        <ImageBackground
-          className="w-full h-40"
-          source={{ uri: data.attributes.coverImage.original }}
-          fadeDuration={200}
-        >
-          <LinearGradient
-            className="w-full h-full"
-            colors={["transparent", "rgba(15, 23, 42, 0.767)"]}
-          />
-        </ImageBackground>
-      )}
-
-      <View className="flex-row items-center justify-between mt-7 px-3">
-        <View className="flex-row items-center ">
-          <Image
-            className="w-24 h-28 mr-2 rounded-md"
-            source={{ uri: data.attributes.posterImage.medium }}
-          />
-
-          <View className=" w-7/12">
-            <Text className="text-slate-300 font-bold text-lg  ">
-              {data.attributes.titles.en_jp
-                ? data.attributes.titles.en_jp
-                : data.attributes.titles.en}
-            </Text>
-            <Text className="text-slate-300 ">
-              {data.attributes?.episodeCount} Episodes
-            </Text>
-          </View>
-        </View>
-
-        <View>
-          <Text className="text-slate-300 font-bold text-lg">Score</Text>
-          <Text className="text-slate-300 text-center">
-            {data.attributes?.averageRating}
-          </Text>
-        </View>
-      </View>
-
-      <View className="mt-7 px-3 pb-3">
-        <Text className="text-slate-300 font-bold text-xl mb-3">Synopsis</Text>
-        <Text className="text-slate-300 text-justify text-base">
-          {data.attributes?.synopsis}
-        </Text>
-      </View>
-    </ScrollView>
+      <HeaderDetails
+        coverImage={data?.attributes?.coverImage?.original}
+        image={data.attributes.posterImage.medium}
+        titleEn={data?.attributes.titles.en}
+        titleJp={data?.attributes.titles.en_jp}
+        episodeCount={data.attributes.episodeCount}
+        score={data.attributes.averageRating}
+      />
+      <TabsDetails
+        synopsis={data.attributes.synopsis}
+        idVideo={data.attributes.youtubeVideoId}
+      />
+    </View>
   );
 };
